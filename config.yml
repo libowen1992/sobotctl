@@ -1,0 +1,145 @@
+hosts:
+  user: root
+  port: 22
+  ssh_type: password
+  ssh_pass: sobo1111
+  ssh_key: /root/.ssh/id_rsa
+  hostctl_path: /data/service/hostctl/hostctl
+  disk_check_points:
+    - /
+    - /data
+  ntp_server: ntp.aliyun.com
+  ips:
+    - 1.1.1.1
+
+
+redis:
+  cluster: false
+  cluster_addr:
+    - 1.1.1.1:7001
+  ip: redis-kefu-svc
+  port: 6379
+  pass: 0fKdkxEP0oW9ddIE4OWFMC0XYA3oMpUc
+
+
+mysql:
+    - ip: mysql-kefu-svc
+      dbName: sobot_db
+      port: 3306
+      user: root
+      pass: e81MsTT4OOL1szqUrquHgCKxjFxQPa8O
+    - ip: mysql-kefu-svc
+      dbName: streampark
+      port: 3306
+      user: root
+      pass: e81MsTT4OOL1szqUrquHgCKxjFxQPa8O
+    - ip: mysql-kefu-svc
+      dbName: powerjob_daily
+      port: 3306
+      user: root
+      pass: e81MsTT4OOL1szqUrquHgCKxjFxQPa8O
+    - ip:  mysql-kefu-svc
+      dbName: nacos
+      port: 3306
+      user: root
+      pass: e81MsTT4OOL1szqUrquHgCKxjFxQPa8O
+    - ip: mysql-kefu-svc
+      dbName: sobot_icall_db
+      port: 3306
+      user: root
+      pass: e81MsTT4OOL1szqUrquHgCKxjFxQPa8O
+    - ip: mysql-kefu-svc
+      dbName: sobot_icall_opensips
+      port: 3306
+      user: root
+      pass: e81MsTT4OOL1szqUrquHgCKxjFxQPa8O
+    - ip: mysql-kefu-svc
+      dbName: sobot_icall_switch
+      port: 3306
+      user: root
+      pass: e81MsTT4OOL1szqUrquHgCKxjFxQPa8O
+
+zookeeper:
+  address:
+    - kfk01:2181
+    - kfk02:2181
+    - kfk03:2181
+
+kafka:
+  adders:
+   - kfk01:9092
+   - kfk02:9092
+   - kfk03:9092
+
+hadoop:
+  namenode: kfk01:9000
+  datanode:
+    - kfk01
+    - kfk02
+    - kfk03
+  user: sobot
+
+streampark:
+  adder: http://kfk01:10000
+  user: admin
+  password: 2jj^5uwGHCwuDKS2
+  db_host: mysql-kefu-svc
+  db_port: 3306
+  db_name: streampark
+  db_user: sobot_mysql_user
+  db_pass: e81MsTT4OOL1szqUrquHgCKxjFxQPa8O
+  jar_hdfs_base_path: /streampark/workspace/
+  jar_hdfs_backup_path: /streampark/backups/
+  apps:
+    - app_id: 100008
+      app_jar: callv6-icall-data-analysis.jar
+    - app_id: 100009
+      app_jar: chat-data-analysis.jar
+
+doris:
+  ip: kfk01
+  port: 9030
+  user: sobot_mysql_user
+  password: e81MsTT4OOL1szqUrquHgCKxjFxQPa8O
+  dbName: sobot_db
+
+elastic:
+  address:
+    - http://kfk01:9200
+    - http://kfk02:9200
+    - http://kfk03:9200
+  auth: false
+  user: xxx
+  pass: xxx
+
+
+nacos:
+  host: http://ng-kefu-svc
+  dbip:  mysql-kefu-svc
+  dbName: nacos
+  dbport: 3306
+  dbuser: root
+  dbpass: e81MsTT4OOL1szqUrquHgCKxjFxQPa8O
+
+minio:
+  endpoint:
+
+k8s:
+  yamlDir: /data/service/k8s
+
+harbor:
+  url: http://1.1.1.1
+  user: admin
+  password: Harbor12345
+
+TCPPortCheck:
+  - name: etcd
+    value: kfk01:2379
+  - name: cc_opensips
+    value: 1.1.1.1:5060
+  - name: cc_janus
+    value: 1.1.1.1:8188
+  - name: outbound_opensips
+    value: 1.1.1.1:18888
+  - name: sdm
+    value: 1.1.1.1:7010
