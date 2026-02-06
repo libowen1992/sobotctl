@@ -66,12 +66,12 @@ func SetUpGoRedis(db int) (*goredis.Client, error) {
 }
 
 func SetUpGoRedisCluster(addr []string, password string) (*goredis.ClusterClient, error) {
-	rdb := goredis.NewClusterClient(&goredis.ClusterOptions{
+	rdb := goredis.NewClusterClient(&goredis.ClusterOptions{   //创建客户端
 		Addrs:    addr,
 		Password: password,
 	})
 
-	_, err := rdb.Ping(context.Background()).Result()
+	_, err := rdb.Ping(context.Background()).Result()   //命令测试链接，无超时控制
 	if err != nil {
 		return nil, err
 	}

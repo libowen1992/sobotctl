@@ -8,22 +8,22 @@ import (
 	"sobotctl/global"
 	"sobotctl/internal/nacosOps"
 )
-
+//指针类型的函数
 func NewNacosCmd() *cobra.Command {
 	var NacosCmd = &cobra.Command{
 		Use:   "nacos",
 		Short: "nacos管理工具",
 	}
-	NacosCmd.AddCommand(newNacosConfigCmd())
+	NacosCmd.AddCommand(newNacosConfigCmd())  //输入子命令
 	return NacosCmd
 }
 
 func newNacosConfigCmd() *cobra.Command {
 	var NacosConfigCmd = &cobra.Command{
-		Use:   "config",
+		Use:   "config",             //下一个子命令
 		Short: "nacos配置管理",
 	}
-	NacosConfigCmd.AddCommand(newNacosConfigListCmd())
+	NacosConfigCmd.AddCommand(newNacosConfigListCmd())   //执行下一步子命令
 	NacosConfigCmd.AddCommand(newNacosConfigDetailCmd())
 	NacosConfigCmd.AddCommand(newNacosConfigUpdateCmd())
 	NacosConfigCmd.AddCommand(newNacosConfigImportCmd())
@@ -32,12 +32,12 @@ func newNacosConfigCmd() *cobra.Command {
 
 func newNacosConfigListCmd() *cobra.Command {
 	var filter string
-	action := "list"
+	action := "list"                //执行子命令动作
 	desc := "nacos配置列表"
 	var Cmd = &cobra.Command{
 		Use:   action,
 		Short: desc,
-		Run: func(cmd *cobra.Command, args []string) {
+		Run: func(cmd *cobra.Command, args []string) {    //list命令如何执行操作
 			if err := nacosOps.NewNacosOps().ConfigList(filter); err != nil {
 				global.Logger.Error(err)
 			}

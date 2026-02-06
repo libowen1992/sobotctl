@@ -163,7 +163,7 @@ func NewCheckCmd() *cobra.Command {
 }
 
 func hostCheck() (ps [][]string, err error) {
-	problems := make([][]string, 0, 0)
+	problems := make([][]string, 0, 0)  //二维字符串切片
 	data, err := hostManage.NewHostOps().Check()
 	if err != nil {
 		global.Logger.Error(err)
@@ -240,9 +240,9 @@ func RedisCheck() (problems [][]string) {
 	// redis客户端实例化
 	redisClient := &RedisCheckOps{}
 	if global.RedisSetting.Cluster {
-		redisClient.Cluster = true
+		redisClient.Cluster = true   //集群判断
 		global.Logger.Debug(fmt.Sprintf("检测redis联通性"))
-		client, err := redisManage.SetUpGoRedisCluster(global.RedisSetting.ClusterAddr, global.RedisSetting.Pass)
+		client, err := redisManage.SetUpGoRedisCluster(global.RedisSetting.ClusterAddr, global.RedisSetting.Pass)   //检测命令
 		if err != nil {
 			resource := "redis"
 			problemTitle := "redis链接失败"
@@ -314,7 +314,7 @@ func MysqlCheck() (problems [][]string) {
 
 func MysqlSingleDBCheck(m setting.MySQLInfo) (p [][]string) {
 	p = make([][]string, 0, 0)
-	global.Logger.Debug(fmt.Sprintf("检测mysql联通性-%s", m.DBName))
+	global.Logger.Debug(fmt.Sprintf("检测mysql联通性-%s", m.DBName))  //取数据库名称
 	db, err := mysql.NewSqx(m.IP, m.User, m.Pass, "information_schema", "utf8", m.Port, 2, 1)
 	if err != nil {
 		resource := "mysql"

@@ -11,7 +11,7 @@ type ElasticOps struct {
 func NewElasticOps() *ElasticOps {
 	return &ElasticOps{}
 }
-
+//链接es客户端
 func NewElasticClient() (client *elastic.Client, err error) {
 	return elastic.NewSimpleClient(
 		elastic.SetURL(global.ElasticS.Address...))

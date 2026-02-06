@@ -6,7 +6,7 @@ import (
 )
 
 type Hosts struct {
-	User            string   `mapstructure:"user"`
+	User            string   `mapstructure:"user"`  //实际执行结构体映射的库
 	SshType         string   `mapstructure:"ssh_type"`
 	SshPass         string   `mapstructure:"ssh_pass"`
 	SshKey          string   `mapstructure:"ssh_key"`
@@ -132,24 +132,25 @@ type PortCheckItem struct {
 
 type TCPPortCheck []*PortCheckItem
 
+//结构体
 type setting struct {
 	vp *viper.Viper
 }
-
+//定义函数
 func New() *setting {
 	vp := viper.New()
 	return &setting{vp: vp}
 }
-
+//给上面结构体定义一个方法---查找配置文件并读取
 func (s setting) Init(file string) error {
-	s.vp.SetConfigFile(file)
-	s.vp.AddConfigPath(".")
-	if err := s.vp.ReadInConfig(); err != nil {
+	s.vp.SetConfigFile(file)  //配置文件名
+	s.vp.AddConfigPath(".") //查找配置文件所在路径
+	if err := s.vp.ReadInConfig(); err != nil {   //读取配置文件，以及错误处理
 		return err
 	}
 	return nil
 }
-
+//把读取到配置进行传入
 func (s setting) SetSection(k string, v interface{}) error {
 	if err := s.vp.UnmarshalKey(k, v); err != nil {
 		return err

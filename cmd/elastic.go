@@ -5,6 +5,8 @@ import (
 	"sobotctl/internal/elasticOps"
 )
 
+
+//定义子命令，无操作命令
 func NewElastic() *cobra.Command {
 	action := "elastic"
 	desc := "elastic工具"

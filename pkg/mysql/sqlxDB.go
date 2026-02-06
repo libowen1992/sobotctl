@@ -11,7 +11,7 @@ var (
 	DefaultMaxOpenConns = 5
 	DefaultMaxIdleConns = 2
 )
-
+//利用sqlx库链接数据库
 func NewSqx(host, user, password, dbname, charset string, port, maxOpenConns, maxIdleConns int) (db *sqlx.DB, err error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True&loc=Local",
 		user, password, host, port, dbname, charset)

@@ -18,7 +18,7 @@ func (eops *ElasticOps) ClusterStatus() (resp *elastic.ClusterHealthResponse, er
 
 func (eops *ElasticOps) Check() {
 	errMsg := "elastic not ok!, msg: %v"
-	resp, err := eops.ClusterStatus()
+	resp, err := eops.ClusterStatus()   //通过这个方法判断集群是否健康
 	if err != nil {
 		global.Logger.Errorf(errMsg, err)
 		return

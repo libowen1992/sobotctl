@@ -29,9 +29,9 @@ func NewParkCmd() *cobra.Command {
 				fmt.Println(toolHelpStr())
 				return
 			}
-			yamlFIle := fmt.Sprintf("%s.yml", strings.TrimSpace(args[0]))
+			yamlFIle := fmt.Sprintf("%s.yml", strings.TrimSpace(args[0]))   //命令行参数
 			yamlFullPath := path.Join(global.K8sS.YamlDir, toolYamlPath, yamlFIle)
-			commandStr := fmt.Sprintf("kubectl apply -f %s", yamlFullPath)
+			commandStr := fmt.Sprintf("kubectl apply -f %s", yamlFullPath)  //执行kubectl应用命令
 			command := exec.Command("bash", "-c", commandStr)
 			command.Stdin = os.Stdin
 			command.Stdout = os.Stdout

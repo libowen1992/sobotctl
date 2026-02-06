@@ -24,23 +24,32 @@ import (
 )
 
 func main() {
-	// init logger
+	// init logger  日志输出格式
 	global.Logger = logger.NewStdoutConsole()
 
 	// init setting
 	if err := SetupSetting(); err != nil {
 		global.Logger.Fatal(err)
 	}
-	cmd.Execute()
+	cmd.Execute()   // Cobra 命令行框架
 }
 
-//定义函数
+//main() 执行流程
+//↓
+//rootCmd.Execute()
+//↓
+//├── 解析命令行参数
+//├── 匹配命令/子命令
+//├── 执行对应的 Run 函数
+//└── 返回错误（如果有）
+
+//定义函数---把配置文件读取到结构体上
 func SetupSetting() error {
-	st := setting.New()
+	st := setting.New()  //返回v
 	if err := st.Init("./config.yml"); err != nil {
 		return errors.Wrap(err, "读取配置文件失败")
 	}
-	if err := st.SetSection("hosts", &global.HostSetting); err != nil {
+	if err := st.SetSection("hosts", &global.HostSetting); err != nil {   //通过键值对的方式进行数据传参
 		return err
 	}
 	if err := st.SetSection("redis", &global.RedisSetting); err != nil {

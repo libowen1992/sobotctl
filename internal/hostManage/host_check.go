@@ -39,8 +39,8 @@ func (ho *HostOps) Check() (data []HostInfo, err error) {
 		return nil, nil
 	}
 
-	data = make([]HostInfo, 0)
-	for _, item := range global.HostSetting.IPS {
+	data = make([]HostInfo, 0)  //创建一个空切片
+	for _, item := range global.HostSetting.IPS {   //ip集群
 		h := &Host{
 			User:    global.HostSetting.User,
 			SshType: global.HostSetting.SshType,
@@ -49,12 +49,12 @@ func (ho *HostOps) Check() (data []HostInfo, err error) {
 			Port:    global.HostSetting.Port,
 			IP:      item,
 		}
-		global.Logger.Debug(fmt.Sprintf("获取主机信息: %s", h.IP))
+		global.Logger.Debug(fmt.Sprintf("获取主机信息: %s", h.IP)) //日志输出信息
 		info, err := ho.GetHostInfo(h)
 		if err != nil {
 			global.Logger.Errorf("获取主机信息发生错误, ip:%s, err: %v", h.IP, err)
 		}
-		data = append(data, info)
+		data = append(data, info)  //切片追加
 	}
 
 	return

@@ -9,13 +9,13 @@ import (
 )
 
 func NewHostManage() *cobra.Command {
-	action := "host"
+	action := "host"  //定义命令名和描述
 	desc := "主机管理"
 	var Cmd = &cobra.Command{
-		Use:   action,
-		Short: desc,
+		Use:   action,   //命令使用方式：host
+		Short: desc,    //简短描述
 	}
-	Cmd.AddCommand(NewHostCheck())
+	Cmd.AddCommand(NewHostCheck())    //添加子命令
 	Cmd.AddCommand(NewHostTerminal())
 	return Cmd
 }
@@ -26,8 +26,8 @@ func NewHostCheck() *cobra.Command {
 	var Cmd = &cobra.Command{
 		Use:   action,
 		Short: desc,
-		Run: func(cmd *cobra.Command, args []string) {
-			renderData := make([][]string, 0)
+		Run: func(cmd *cobra.Command, args []string) {  //主命令执行
+			renderData := make([][]string, 0) //二维数组
 			headers := []string{"主机名", "ip", "系统", "负载", "cpu核心", "cpu使用率", "内存总量", "内存使用率", "磁盘使用情况"}
 			data, err := hostManage.NewHostOps().Check()
 			if err != nil {
