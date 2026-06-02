@@ -16,11 +16,12 @@ limitations under the License.
 package main
 
 import (
-	"github.com/pkg/errors"
 	"sobotctl/cmd"
 	"sobotctl/global"
 	"sobotctl/pkg/logger"
 	"sobotctl/setting"
+
+	"github.com/pkg/errors"
 )
 
 func main() {
@@ -31,7 +32,8 @@ func main() {
 	if err := SetupSetting(); err != nil {
 		global.Logger.Fatal(err)
 	}
-	cmd.Execute()   // Cobra 命令行框架
+	cmd.Execute() // Cobra 命令行框架
+
 }
 
 //main() 执行流程
@@ -43,13 +45,13 @@ func main() {
 //├── 执行对应的 Run 函数
 //└── 返回错误（如果有）
 
-//定义函数---把配置文件读取到结构体上
+// 定义函数---把配置文件读取到结构体上
 func SetupSetting() error {
-	st := setting.New()  //返回v
+	st := setting.New() //返回v
 	if err := st.Init("./config.yml"); err != nil {
 		return errors.Wrap(err, "读取配置文件失败")
 	}
-	if err := st.SetSection("hosts", &global.HostSetting); err != nil {   //通过键值对的方式进行数据传参
+	if err := st.SetSection("hosts", &global.HostSetting); err != nil { //通过键值对的方式进行数据传参
 		return err
 	}
 	if err := st.SetSection("redis", &global.RedisSetting); err != nil {
